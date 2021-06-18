@@ -21,7 +21,14 @@ from tqdm import tqdm
 
 # +
 class nx_preps:
-
+    """
+    Read more in the 'github.com/lee-ju/techflow#techflownx_tech'
+    
+    Parameters
+    ----------
+    1. `x`: The data for social network analysis. On the input will always be list.
+    2. `y`: Second data for citation network analysis On the input will always be list. (default: None)
+    """
     def __init__(self, x, y=None):
         self.x = x
         self.y = y
@@ -36,6 +43,15 @@ class nx_preps:
         return self.n != self.n
 
     def edges(self, obj='ipcs', num_slice=4, spliter="||"):
+        """
+        Read more in the 'github.com/lee-ju/techflow#techflownx_tech'
+    
+        Parameters
+        ----------
+        1. `obj`: 'ipcs' for IPC code network, 'forws' for citation network. (default: 'ipcs')
+        2. `num_slice`: An argument to how much to truncate the code from behind. (default: 4)
+        3. `spliter`: An arguments to break code. (default: '||')
+        """
         self.num_slice = int(num_slice)
         self.spliter = spliter
         self.obj = obj
@@ -76,7 +92,14 @@ class nx_preps:
 
 
 class nx_utils:
-
+    """
+    Read more in the 'github.com/lee-ju/techflow#techflownx_tech'
+    
+    Parameters
+    ----------
+    1. `df`: Dataframe of edgelist.
+    2. `direct`: Boolean controlling the DiGraph. (default: True)
+    """
     def __init__(self, df, direct=True):
         self.df = df
         self.direct = direct
@@ -94,6 +117,19 @@ class nx_utils:
 
     def nx_viz(self, fs=[10, 10], with_labels=True, node_size=300, node_color='red', \
                font_size=12, font_color='black', seed=10):
+        """
+        Read more in the 'github.com/lee-ju/techflow#techflownx_tech'
+    
+        Parameters
+        ----------
+        1. `fs`: List of figsize=[horizontal_size, vertical_size]. (default: [10, 10])
+        2. `with_labels`: Boolean controlling the use of node labels. (default: True)
+        3. `node_size`: Size of nodes. (default: 100)
+        4. `node_color`: Node color. (default: 'red')
+        5. `font_size`: Size of labels. (default: 12)
+        6. `font_color`: Node label. (default: 'black')
+        7. `seed`: Seed for random visualization. (default: 10)
+        """
         self.fs = fs
         self.with_labels = with_labels
         self.node_size = int(node_size)
@@ -114,6 +150,13 @@ class nx_utils:
         return self.G
 
     def nx_centrality(self, top_k=10):
+        """
+        Read more in the 'github.com/lee-ju/techflow#techflownx_tech'
+    
+        Parameters
+        ----------
+        1. `top_k`: Return centrality by top_k. (default: 10)
+        """
         self.top_k = int(top_k)
 
         if self.top_k > self.df.shape[0]:
