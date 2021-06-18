@@ -95,7 +95,7 @@ class pic_preps:
                     if sim_val >= self.min_sim:
                         self.from_sam.append(self.apps[i])
                         self.to_sam.append(self.apps[j])
-        return from_sam, to_sam
+        return self.from_sam, self.to_sam
 
     def get_repo(self, num_slice=4):
         """
@@ -106,6 +106,7 @@ class pic_preps:
         1. `num_slice`: An argument to how much to truncate the code from behind. (default: 4)
         """
         self.num_slice = int(num_slice)
+
         repo = dict()
         for i in range(len(self.apps)):
             str_ad = str(self.apps_date[i])
