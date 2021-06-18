@@ -190,7 +190,10 @@ class nx_utils:
                 rt_df['Closeness'] + rt_df['Betweenness']
             rt_df = rt_df.sort_values('Centrality', ascending=False)
             rt_df.set_index('id', inplace=True)
-            return rt_df
+
+            return_k = min(self.top_k, rt_df.shape[0])
+            return_df = rt_df.iloc[:return_k]
+            return return_df
 
 
 # -
