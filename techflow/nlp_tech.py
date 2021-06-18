@@ -22,10 +22,27 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import copy
 
 class nlp_preps:
+    """
+    Read more in the 'github.com/lee-ju/techflow#techflownlp_tech'
+    
+    Parameters
+    ----------
+    1. `x`: Texts to be DTM.
+    """
     def __init__(self, x):
         self.x = x
 
     def dtmx(self, max_features=100, use_ptrain=True, use_weight=True, ptrain_path=None):
+        """
+        Read more in the 'github.com/lee-ju/techflow#techflownlp_tech'
+    
+        Parameters
+        ----------
+        1. `max_features`: If not None, build a vocabulary that only consider the top max_features ordered by term frequency across the corpus. (default: 100)
+        2. `use_ptrain`: True if using the pre-trained word embedding model, False if using only tf-idf. (default: True)
+        3. `use_weight`: True if embedding values are used as weights, False otherwise. Select only when use_ptrain is True. (default: True)
+        4. `ptrain_path`: Path for pre-trained word embedding model. (default: None)
+        """
         self.max_features = int(max_features)
         self.use_ptrain = use_ptrain
         self.use_weight = use_weight
