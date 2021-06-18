@@ -15,6 +15,7 @@
 
 from techflow.nx_tech import nx_preps
 from techflow.nlp_tech import nlp_preps
+import numpy as np
 import pandas as pd
 import networkx as nx
 from tqdm import tqdm
