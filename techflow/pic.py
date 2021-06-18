@@ -227,7 +227,7 @@ class pic_utils:
         edge_color = nx.get_edge_attributes(self.CS_net, 'color').values()
 
         plt.figure(figsize=(self.fs[0], self.fs[1]))
-        pos = nx.spring_layout(CS_net, seed=self.seed)
+        pos = nx.spring_layout(self.CS_net, seed=self.seed)
 
         nx.draw(self.CS_net, pos=pos, with_labels=self.with_labels,
                 node_color=node_color, edge_color=edge_color,
