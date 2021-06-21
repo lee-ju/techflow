@@ -134,7 +134,7 @@ class nx_utils:
         self.with_labels = with_labels
         self.node_size = int(node_size)
         self.node_color = node_color
-        self.font_size = font_size
+        self.font_size = int(font_size)
         self.font_color = font_color
         self.seed = int(seed)
 
