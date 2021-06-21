@@ -11,7 +11,7 @@ from techflow.nx_tech import nx_preps, nx_utils
 import pandas as pd
 
 ## Read dataset
-sample_ipcs = pd.read_csv('sample_ipc.csv')
+sample_ipcs = pd.read_csv('sample_dataset/sample_ipc.csv')
 ipcs = sample_ipcs['all_ipcs'].tolist()
 
 ## Preprocessing
@@ -34,7 +34,7 @@ from techflow.nx_tech import nx_preps, nx_utils
 import pandas as pd
 
 ## Read dataset
-sample_forws = pd.read_csv('sample_forw.csv')
+sample_forws = pd.read_csv('sample_dataset/sample_forw.csv')
 apps = sample_forws['Reg_id'].tolist()
 forws = sample_forws['Forw_in_id'].tolist()
 
