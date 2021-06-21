@@ -209,7 +209,7 @@ class pic_utils:
         self.fs = fs
         self.with_labels = with_labels
         self.node_size = int(node_size)
-        self.font_size = font_size
+        self.font_size = int(font_size)
         self.seed = int(seed)
 
         for m in range(len(self.from_cam)):
