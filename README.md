@@ -24,7 +24,8 @@ ipcs_central = ipcs_utils.nx_centrality(top_k=3)
 print(ipcs_central)
 
 ## Visualizing
-ipcs_G = ipcs_utils.nx_viz(fs=[5, 5], with_labels=True,
+    ipcs_G = ipcs_utils.nx_viz(fs=[5, 5], with_labels=True,
+                           font_size=10, font_color='blue',
                            node_size=100, node_color='red', seed=15)
 ```
 ```python
@@ -59,7 +60,8 @@ forws_central = forws_utils.nx_centrality(top_k=5)
 print(forws_central)
 
 ## Visualizing
-forws_G = forws_utils.nx_viz(fs=[5, 5], with_labels=True,
+    forws_G = forws_utils.nx_viz(fs=[5, 5], with_labels=True,
+                             font_size=10, font_color='black',
                              node_size=100, node_color='blue', seed=15)
 ```
 ```python
