@@ -18,15 +18,26 @@ ipcs = sample_ipcs['all_ipcs'].tolist()
 ipcs_preps = nx_preps(ipcs)
 ipcs_df = ipcs_preps.edges(obj='ipcs', num_slice=4, spliter='||')
 
-## Visualizing
+## Network Centrality
 ipcs_utils = nx_utils(ipcs_df, direct=False)
+ipcs_central = ipcs_utils.nx_centrality(top_k=3)
+print(ipcs_central)
+
+## Visualizing
 ipcs_G = ipcs_utils.nx_viz(fs=[5, 5], with_labels=True,
                            node_size=100, node_color='red', seed=15)
-                           
-## Network Centrality
-ipcs_central = ipcs_utils.nx_centrality(top_k=10)
-print(ipcs_central)
 ```
+```python
+[Out]:
+
+100%|██████████| 20/20 [00:00<00:00, 63453.92it/s]
+        Degree  Closeness  Betweenness  Centrality
+id                                                
+G06F  0.375000   0.421053     0.721014    1.517067
+G02B  0.250000   0.296296     0.369565    0.915862
+H04Q  0.083333   0.352941     0.391304    0.827579
+```
+![fig-nx_ipc](imgs/fig-nx_ipc.png)
 
 #### Citation Network
 ```python
@@ -42,15 +53,28 @@ forws = sample_forws['Forw_in_id'].tolist()
 forws_preps = nx_preps(x=apps, y=forws)
 forws_df = forws_preps.edges(obj='forws', num_slice=0, spliter='||')
 
-## Visualizing
+## Network Centrality
 forws_utils = nx_utils(forws_df, direct=False)
+forws_central = forws_utils.nx_centrality(top_k=5)
+print(forws_central)
+
+## Visualizing
 forws_G = forws_utils.nx_viz(fs=[5, 5], with_labels=True,
                              node_size=100, node_color='blue', seed=15)
-
-## Network Centrality
-forws_central = forws_utils.nx_centrality(top_k=10)
-print(forws_central)
 ```
+```python
+[Out]: 
+
+100%|██████████| 10/10 [00:00<00:00, 108660.73it/s]
+             Degree  Closeness  Betweenness  Centrality
+id                                                     
+US2345678  0.444444   0.363636     0.236111    1.044192
+US5678901  0.444444   0.285714     0.152778    0.882937
+US6789012  0.555556   0.210526     0.000000    0.766082
+US4567890  0.333333   0.418301     0.000000    0.751634
+US1234567  0.333333   0.250000     0.111111    0.694444
+```
+![fig-nx_forw](imgs/fig-nx_forw.png)
 
 #### [Patents with Indirect Connection](https://doi.org/10.3390/su13020820)
 
@@ -88,6 +112,14 @@ print(df_pic)
 CS_net = pu.cs_net(pic_E, pic_L, fs=[3, 3], with_labels=True,
                    node_size=300, font_size=12, seed=10)
 ```
+```python
+[Out]:
+
+100%|██████████| 1/1 [00:00<00:00, 11366.68it/s]
+  P_E P_L
+0   C   A
+```
+![fig-pic](imgs/fig-pic.png)
 
 ## Parameters
 
