@@ -1,25 +1,8 @@
-# -*- coding: utf-8 -*-
-# ---
-# jupyter:
-#   jupytext:
-#     formats: ipynb,py:light
-#     text_representation:
-#       extension: .py
-#       format_name: light
-#       format_version: '1.5'
-#       jupytext_version: 1.11.3
-#   kernelspec:
-#     display_name: Python 3
-#     language: python
-#     name: python3
-# ---
-
 import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
-# +
 class nx_preps:
     """
     Read more in the 'github.com/lee-ju/techflow#techflownx_tech'
@@ -195,8 +178,6 @@ class nx_utils:
             return_df = rt_df.iloc[:return_k]
             return return_df
 
-
-# -
 
 if __name__ == '__main__':
     
