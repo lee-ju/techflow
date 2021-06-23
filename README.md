@@ -3,9 +3,9 @@
 
 `pip install git+https://github.com/lee-ju/techflow.git`
 
-> ## Usage
+## Usage
 
-> > #### IPC Code Network
+#### IPC Code Network
 ```python
 from techflow.nx_tech import nx_preps, nx_utils
 import pandas as pd
@@ -40,7 +40,7 @@ H04Q  0.083333   0.352941     0.391304    0.827579
 ```
 ![fig-nx_ipc](imgs/fig-nx_ipc.png)
 
-> > #### Citation Network
+#### Citation Network
 ```python
 from techflow.nx_tech import nx_preps, nx_utils
 import pandas as pd
@@ -78,7 +78,7 @@ US1234567  0.333333   0.250000     0.111111    0.694444
 ```
 ![fig-nx_forw](imgs/fig-nx_forw.png)
 
-> > #### Patents with Indirect Connection (see [Paper](https://doi.org/10.3390/su13020820))
+#### Patents with Indirect Connection (see [Paper](https://doi.org/10.3390/su13020820))
 
 ```python
 from techflow.pic import pic_preps, pic_utils
@@ -123,9 +123,9 @@ CS_net = pu.cs_net(pic_E, pic_L, fs=[3, 3], with_labels=True,
 ```
 ![fig-pic](imgs/fig-pic.png)
 
-> ## Parameters
+## Parameters
 
-> > #### `techflow.nx_tech`
+#### `techflow.nx_tech`
 - `nx_preps` constructor:
     1. `x`: The data for social network analysis. On the input will always be list.
     2. `y`: Second data for citation network analysis On the input will always be list. (default: None)
@@ -151,7 +151,7 @@ CS_net = pu.cs_net(pic_E, pic_L, fs=[3, 3], with_labels=True,
 - `nx_utils.centrality` constructor:
     1. `top_k`: Return centrality by top_k. (default: 10)
 
-> > #### `techflow.nlp_tech`
+#### `techflow.nlp_tech`
 - `nlp_preps` constructor:
     1. `x`: Texts to be DTM.
     
@@ -161,7 +161,7 @@ CS_net = pu.cs_net(pic_E, pic_L, fs=[3, 3], with_labels=True,
     3. `use_weight`: True if embedding values are used as weights, False otherwise. Select only when use_ptrain is True. (default: True)
     4. `ptrain_path`: Path for pre-trained word embedding model. (default: None)
     
-> > #### `techflow.pic` (see: [PIC](https://doi.org/10.3390/su13020820))
+#### `techflow.pic` (see: [PIC](https://doi.org/10.3390/su13020820))
 - `pic_preps` constructor:
     1. `apps`: Number of patents.
     2. `apps_date`: Filling dates.
@@ -201,7 +201,7 @@ CS_net = pu.cs_net(pic_E, pic_L, fs=[3, 3], with_labels=True,
     5. `font_size`: Size of labels. (default: 12)
     6. `seed`: Seed for random visualization. (default: 10)
 
-> ## TODO
+## TODO
 - [x] IPC Network
 - [x] Citation Network
 - [x] NLP
