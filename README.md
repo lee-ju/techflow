@@ -78,7 +78,7 @@ US1234567  0.333333   0.250000     0.111111    0.694444
 ```
 ![fig-nx_forw](imgs/fig-nx_forw.png)
 
-#### [Patents with Indirect Connection](https://doi.org/10.3390/su13020820)
+#### Patents with Indirect Connection (see [Paper](https://doi.org/10.3390/su13020820))
 
 ```python
 from techflow.pic import pic_preps, pic_utils
