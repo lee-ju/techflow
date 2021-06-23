@@ -207,11 +207,12 @@ if __name__ == '__main__':
     ipcs_df = ipcs_preps.edges(obj='ipcs', num_slice=4, spliter='||')
 
     ipcs_utils = nx_utils(ipcs_df, direct=False)
-    ipcs_G = ipcs_utils.nx_viz(fs=[5, 5], with_labels=True,
-                               font_size=10, font_color='blue',
-                               node_size=100, node_color='black', seed=15)
     ipcs_central = ipcs_utils.nx_centrality(top_k=10)
     print(ipcs_central)
+    
+    ipcs_G = ipcs_utils.nx_viz(fs=[5, 5], with_labels=True,
+                           font_size=10, font_color='blue',
+                           node_size=100, node_color='red', seed=15)
 
 if __name__ == '__main__':
     
@@ -223,8 +224,9 @@ if __name__ == '__main__':
     forws_df = forws_preps.edges(obj='forws', num_slice=0, spliter='||')
 
     forws_utils = nx_utils(forws_df, direct=True)
-    forws_G = forws_utils.nx_viz(fs=[5, 5], with_labels=True,
-                                 font_size=10, font_color='black',
-                                 node_size=100, node_color='blue', seed=15)
     forws_central = forws_utils.nx_centrality(top_k=10)
     print(forws_central)
+
+    forws_G = forws_utils.nx_viz(fs=[5, 5], with_labels=True,
+                             font_size=10, font_color='black',
+                             node_size=100, node_color='blue', seed=15)
