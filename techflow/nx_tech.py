@@ -10,14 +10,14 @@ class nx_preps:
     Parameters
     ----------
     1. `x`: The data for social network analysis. On the input will always be list.
-    2. 'app': Applicant Number. (default: None)
-    3. `fc`: Forward citation list. (default: None)
+    2. 'apps': Applicant Number. (default: None)
+    3. `forws`: Forward citation list. (default: None)
     """
 
-    def __init__(self, x, apps=None, fc=None):
+    def __init__(self, x, apps=None, forws=None):
         self.x = x
         self.apps = apps
-        self.fc = fc
+        self.forws = forws
         self.len_x = len(self.x)
 
         self.from_list = []
@@ -62,8 +62,8 @@ class nx_preps:
                 app_reg[self.apps[a]] = self.x[a]
 
             for i in tqdm(range(self.len_x)):
-                if self.isNan(self.fc[i]) == False:
-                    i_fc = self.fc[i].split(self.spliter)
+                if self.isNan(self.forws[i]) == False:
+                    i_fc = self.forws[i].split(self.spliter)
 
                     for j in range(len(i_fc)):
                         if len(i_fc) != 0:
@@ -77,7 +77,7 @@ class nx_preps:
                                 self.to_list.append(i_fc_j)
                             # self.to_list.append(i_fc_j)
 
-                elif self.isNan(self.fc[i]) == True:
+                elif self.isNan(self.forws[i]) == True:
                     pass
 
         ft = {'from': self.from_list, 'to': self.to_list}
@@ -215,7 +215,7 @@ if __name__ == '__main__':
     apps = sample_forws['App_id'].tolist()
     forws = sample_forws['Forw_in_id'].tolist()
     
-    forws_preps = nx_preps(x=x, apps=apps, fc=forws)
+    forws_preps = nx_preps(x=x, apps=apps, forws=forws)
     forws_df = forws_preps.edges(obj='forws', num_slice=0, spliter='||')
 
     forws_utils = nx_utils(forws_df, direct=True)
