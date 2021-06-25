@@ -129,7 +129,7 @@ CS_net = pu.cs_net(pic_E, pic_L, fs=[3, 3], with_labels=True,
 #### `techflow.nx_tech`
 - `nx_preps` constructor:
     1. `x`: The data for social network analysis. On the input will always be list.
-    2. 'app': Applicant Number. (default: None)
+    2. `app`: Applicant Number. (default: None)
     3. `fc`: Forward citation list. (default: None)
 
 - `nx_preps.edges` constructor:
