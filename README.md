@@ -1,4 +1,4 @@
-# TechFlow ver.0.0.3
+# TechFlow
 ## Installation
 
 `pip install git+https://github.com/lee-ju/techflow.git`
@@ -47,11 +47,12 @@ import pandas as pd
 
 ## Read dataset
 sample_forws = pd.read_csv('sample_dataset/sample_forw.csv')
-apps = sample_forws['Reg_id'].tolist()
+x = sample_forws['Reg_id'].tolist()
+apps = sample_forws['App_id'].tolist()
 forws = sample_forws['Forw_in_id'].tolist()
 
 ## Preprocessing
-forws_preps = nx_preps(x=apps, y=forws)
+forws_preps = nx_preps(x=x, apps=apps, fc=forws)
 forws_df = forws_preps.edges(obj='forws', num_slice=0, spliter='||')
 
 ## Network Centrality
@@ -67,7 +68,7 @@ forws_G = forws_utils.nx_viz(fs=[5, 5], with_labels=True,
 ```python
 [Out]: 
 
-100%|██████████| 10/10 [00:00<00:00, 108660.73it/s]
+100%|██████████| 10/10 [00:00<00:00, 23484.34it/s]
              Degree  Closeness  Betweenness  Centrality
 id                                                     
 US2345678  0.444444   0.363636     0.236111    1.044192
@@ -128,7 +129,8 @@ CS_net = pu.cs_net(pic_E, pic_L, fs=[3, 3], with_labels=True,
 #### `techflow.nx_tech`
 - `nx_preps` constructor:
     1. `x`: The data for social network analysis. On the input will always be list.
-    2. `y`: Second data for citation network analysis On the input will always be list. (default: None)
+    2. 'app': Applicant Number. (default: None)
+    3. `fc`: Forward citation list. (default: None)
 
 - `nx_preps.edges` constructor:
     1. `obj`: 'ipcs' for IPC code network, 'forws' for citation network. (default: 'ipcs')

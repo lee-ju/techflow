@@ -6,15 +6,18 @@ from tqdm import tqdm
 class nx_preps:
     """
     Read more in the 'github.com/lee-ju/techflow#techflownx_tech'
-    
+
     Parameters
     ----------
     1. `x`: The data for social network analysis. On the input will always be list.
-    2. `y`: Second data for citation network analysis On the input will always be list. (default: None)
+    2. 'app': Applicant Number. (default: None)
+    3. `fc`: Forward citation list. (default: None)
     """
-    def __init__(self, x, y=None):
+
+    def __init__(self, x, apps=None, fc=None):
         self.x = x
-        self.y = y
+        self.apps = apps
+        self.fc = fc
         self.len_x = len(self.x)
 
         self.from_list = []
@@ -28,7 +31,7 @@ class nx_preps:
     def edges(self, obj='ipcs', num_slice=4, spliter="||"):
         """
         Read more in the 'github.com/lee-ju/techflow#techflownx_tech'
-    
+
         Parameters
         ----------
         1. `obj`: 'ipcs' for IPC code network, 'forws' for citation network. (default: 'ipcs')
@@ -53,18 +56,28 @@ class nx_preps:
                     pass
 
         elif self.obj == 'forws':
+
+            app_reg = dict()
+            for a in range(len(self.apps)):
+                app_reg[self.apps[a]] = self.x[a]
+
             for i in tqdm(range(self.len_x)):
-                if self.isNan(self.y[i]) == False:
-                    i_y = self.y[i].split(self.spliter)
+                if self.isNan(self.fc[i]) == False:
+                    i_fc = self.fc[i].split(self.spliter)
 
-                    for j in range(len(i_y)):
-                        if len(i_y) != 0:
+                    for j in range(len(i_fc)):
+                        if len(i_fc) != 0:
                             self.from_list.append(self.x[i])
-                            len_i_y = len(i_y[j])
-                            i_y_j = i_y[j][:(len_i_y - self.num_slice)]
-                            self.to_list.append(i_y_j)
+                            len_i_fc = len(i_fc[j])
+                            i_fc_j = i_fc[j][:(len_i_fc - self.num_slice)]
 
-                elif self.isNan(self.y[i]) == True:
+                            try:
+                                self.to_list.append(app_reg[i_fc_j])
+                            except KeyError:
+                                self.to_list.append(i_fc_j)
+                            # self.to_list.append(i_fc_j)
+
+                elif self.isNan(self.fc[i]) == True:
                     pass
 
         ft = {'from': self.from_list, 'to': self.to_list}
@@ -188,7 +201,7 @@ if __name__ == '__main__':
     ipcs_df = ipcs_preps.edges(obj='ipcs', num_slice=4, spliter='||')
 
     ipcs_utils = nx_utils(ipcs_df, direct=False)
-    ipcs_central = ipcs_utils.nx_centrality(top_k=10)
+    ipcs_central = ipcs_utils.nx_centrality(top_k=3)
     print(ipcs_central)
     
     ipcs_G = ipcs_utils.nx_viz(fs=[5, 5], with_labels=True,
@@ -198,16 +211,17 @@ if __name__ == '__main__':
 if __name__ == '__main__':
     
     sample_forws = pd.read_csv('sample_dataset/sample_forw.csv')
-    apps = sample_forws['Reg_id'].tolist()
+    x = sample_forws['Reg_id'].tolist()
+    apps = sample_forws['App_id'].tolist()
     forws = sample_forws['Forw_in_id'].tolist()
     
-    forws_preps = nx_preps(x=apps, y=forws)
+    forws_preps = nx_preps(x=x, apps=apps, fc=forws)
     forws_df = forws_preps.edges(obj='forws', num_slice=0, spliter='||')
 
     forws_utils = nx_utils(forws_df, direct=True)
-    forws_central = forws_utils.nx_centrality(top_k=10)
+    forws_central = forws_utils.nx_centrality(top_k=5)
     print(forws_central)
 
     forws_G = forws_utils.nx_viz(fs=[5, 5], with_labels=True,
                              font_size=10, font_color='black',
-                             node_size=100, node_color='blue', seed=15)
+                             node_size=100, node_color='blue', seed=77)
