@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='techflow',
-    version='0.0.3',
+    version='0.0.4',
     description='TechFlow: for Technology Analysis',
     url='https://github.com/lee-ju/techflow.git',
     author='Juhyun Lee',
