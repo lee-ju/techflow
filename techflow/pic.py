@@ -1,18 +1,3 @@
-# ---
-# jupyter:
-#   jupytext:
-#     formats: ipynb,py:light
-#     text_representation:
-#       extension: .py
-#       format_name: light
-#       format_version: '1.5'
-#       jupytext_version: 1.11.3
-#   kernelspec:
-#     display_name: Python 3
-#     language: python
-#     name: python3
-# ---
-
 from techflow.nx_tech import nx_preps
 from techflow.nlp_tech import nlp_preps
 import numpy as np
@@ -28,14 +13,15 @@ class pic_preps:
     
     Parameters
     ----------
-    1. `apps`: Number of patents.
-    2. `apps_date`: Filling dates.
-    3. `forws`: Forward citation patents.
-    4. `texts`: Text of documents. (default: None)
+    1. `apps`: Applicant id.
+    2. `regs`: Registration id.
+    3. `regs_date`: Registration dates.
+    4. `forws`: Forward citation patents.
+    5. `texts`: Text of documents. (default: None)
     """
-    def __init__(self, apps, apps_date, forws, texts=None):
-        self.apps = apps
-        self.apps_date = apps_date
+    def __init__(self, apps, regs, regs_date, forws, texts=None):
+        self.regs = regs
+        self.regs_date = regs_date
         self.forws = forws
         self.texts = texts
 
@@ -51,7 +37,7 @@ class pic_preps:
         self.num_slice = int(num_slice)
         self.spliter = spliter
 
-        forws_preps = nx_preps(x=self.apps, y=self.forws)
+        forws_preps = nx_preps(x=self.regs, apps=self.apps, forws=self.forws)
         df_cam = forws_preps.edges(
             obj='forws', num_slice=self.num_slice, spliter=self.spliter)
         from_cam = df_cam['from'].tolist()
@@ -93,8 +79,8 @@ class pic_preps:
                 if j < N:
                     sim_val = cos_sim(emb_x[i], emb_x[j])
                     if sim_val >= self.min_sim:
-                        self.from_sam.append(self.apps[i])
-                        self.to_sam.append(self.apps[j])
+                        self.from_sam.append(self.regs[i])
+                        self.to_sam.append(self.regs[j])
         return self.from_sam, self.to_sam
 
     def get_repo(self, num_slice=4):
@@ -108,11 +94,11 @@ class pic_preps:
         self.num_slice = int(num_slice)
 
         repo = dict()
-        for i in range(len(self.apps)):
-            str_ad = str(self.apps_date[i])
-            len_ad = len(str_ad)
-            int_ad = int(str_ad[:(len_ad - self.num_slice)])
-            repo[self.apps[i]] = int_ad
+        for i in range(len(self.regs)):
+            str_rd = str(self.regs_date[i])
+            len_rd = len(str_rd)
+            int_rd = int(str_rd[:(len_rd - self.num_slice)])
+            repo[self.regs[i]] = int_rd
         return repo
 
 
@@ -126,7 +112,7 @@ class pic_utils:
     2. `to_cam`: Out-node lists of Citation Adjacency Matrix.
     3. `from_sam`: In-node lists of Similarity Adjacency Matrix.
     4. `to_sam`: Out-node lists of Similarity Adjacency Matrix.
-    5. `repo`: Dictionary of apps and apps_date.
+    5. `repo`: Dictionary of regs and regs_date.
     6. `direct`: Boolean controlling the DiGraph. (default: True)
     """
     def __init__(self, from_cam, to_cam, from_sam, to_sam, repo, direct=True):
@@ -241,19 +227,17 @@ class pic_utils:
 
         return self.CS_net
 
-
-# ## Test
-
 if __name__ == '__main__':
     ## Read dataset
     sample_pic = pd.read_csv('sample_dataset/sample_pic.csv')
-    apps = sample_pic['Reg_id'].tolist()
+    apps = sample_pic['App_id'].tolist()
+    regs = sample_pic['Reg_id'].tolist()
+    regs_date = sample_pic['Reg_date'].tolist()
     forws = sample_pic['Forw_in_id'].tolist()
-    apps_date = sample_pic['Reg_date'].tolist()
     texts = sample_pic['Text'].tolist()
 
     ## Preprocessing: CAM
-    pp = pic_preps(apps=apps, apps_date=apps_date,
+    pp = pic_preps(apps=apps, regs=regs, regs_date=regs_date,
                    forws=forws, texts=texts)
     repo = pp.get_repo(num_slice=0)
     from_cam, to_cam = pp.get_cam(num_slice=0, spliter='||')

@@ -52,7 +52,7 @@ apps = sample_forws['App_id'].tolist()
 forws = sample_forws['Forw_in_id'].tolist()
 
 ## Preprocessing
-forws_preps = nx_preps(x=x, apps=apps, fc=forws)
+forws_preps = nx_preps(x=x, apps=apps, forws=forws)
 forws_df = forws_preps.edges(obj='forws', num_slice=0, spliter='||')
 
 ## Network Centrality
@@ -87,13 +87,14 @@ import pandas as pd
 
 ## Read dataset
 sample_pic = pd.read_csv('sample_dataset/sample_pic.csv')
-apps = sample_pic['Reg_id'].tolist()
+apps = sample_pic['App_id'].tolist()
+regs = sample_pic['Reg_id'].tolist()
+regs_date = sample_pic['Reg_date'].tolist()
 forws = sample_pic['Forw_in_id'].tolist()
-apps_date = sample_pic['Reg_date'].tolist()
 texts = sample_pic['Text'].tolist()
 
 ## Preprocessing: CAM
-pp = pic_preps(apps=apps, apps_date=apps_date,
+pp = pic_preps(apps=apps, regs=regs, regs_date=regs_date,
                forws=forws, texts=texts)
 repo = pp.get_repo(num_slice=0)
 from_cam, to_cam = pp.get_cam(num_slice=0, spliter='||')
@@ -129,8 +130,8 @@ CS_net = pu.cs_net(pic_E, pic_L, fs=[3, 3], with_labels=True,
 #### `techflow.nx_tech`
 - `nx_preps` constructor:
     1. `x`: The data for social network analysis. On the input will always be list.
-    2. `app`: Applicant Number. (default: None)
-    3. `fc`: Forward citation list. (default: None)
+    2. `apps`: Applicant Number. (default: None)
+    3. `forws`: Forward citation list. (default: None)
 
 - `nx_preps.edges` constructor:
     1. `obj`: 'ipcs' for IPC code network, 'forws' for citation network. (default: 'ipcs')
@@ -165,10 +166,11 @@ CS_net = pu.cs_net(pic_E, pic_L, fs=[3, 3], with_labels=True,
     
 #### `techflow.pic` (see: [PIC](https://doi.org/10.3390/su13020820))
 - `pic_preps` constructor:
-    1. `apps`: Number of patents.
-    2. `apps_date`: Filling dates.
-    3. `forws`: Forward citation patents.
-    4. `texts`: Text of documents. (default: None)
+    1. `apps`: Applicant id.
+    2. `regs`: Registration id.
+    3. `regs_date`: Registration dates.
+    4. `forws`: Forward citation patents.
+    5. `texts`: Text of documents. (default: None)
     
 - `pic_preps.get_cam` constructor:
     1. `num_slice`: An argument to how much to truncate the code from behind. (default: 4)
