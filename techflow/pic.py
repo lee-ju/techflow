@@ -20,6 +20,7 @@ class pic_preps:
     5. `texts`: Text of documents. (default: None)
     """
     def __init__(self, apps, regs, regs_date, forws, texts=None):
+        self.apps = apps
         self.regs = regs
         self.regs_date = regs_date
         self.forws = forws
