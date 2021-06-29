@@ -82,9 +82,9 @@ class nx_preps:
 
         ft = {'from': self.from_list, 'to': self.to_list}
         df = pd.DataFrame(ft)
-        df.drop_duplicates()
+        df_dropdup = df.drop_duplicates()
 
-        return df
+        return df_dropdup
 
 
 class nx_utils:
