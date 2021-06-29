@@ -173,8 +173,13 @@ class pic_utils:
                                 self.pic_L.append(L)
             else:
                 pass
+        d = {'P_E': self.pic_E, 'P_L': self.pic_L}
+        return_df = pd.DataFrame(d)
+        return_df_dupdrop = return_df.drop_duplicates()
+        return_pic_E = return_df_dupdrop['P_E']
+        return_pic_L = return_df_dupdrop['P_L']
 
-        return self.pic_E, self.pic_L
+        return return_pic_E, return_pic_L
 
     def cs_net(self, pic_E, pic_L, fs=[10, 10], with_labels=True,
                node_size=300, font_size=12, seed=10):
