@@ -51,7 +51,7 @@ class nlp_preps:
             
             for i in tqdm(range(len(vocab_eng))):
                 vocabulary = str(vocab_eng[i])
-                vocab.append(vocabulary)
+                self.vocab.append(vocabulary)
 
             W = w2v_model.vectors
             term = vectorizer.get_feature_names()[:]
@@ -59,7 +59,7 @@ class nlp_preps:
             for i in tqdm(range(0, len(term))):
                 Term_i = term[i]
                 try:
-                    v_idx = vocab.index(Term_i)
+                    v_idx = self.vocab.index(Term_i)
                     find_vec = W[v_idx]
                 except ValueError:
                     find_vec = np.zeros((W.shape[1]))
