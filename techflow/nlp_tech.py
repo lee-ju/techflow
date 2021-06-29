@@ -85,7 +85,9 @@ class nlp_preps:
             else:
                 for i in range(N):
                     for j in range(V):
-                        if dtm_arr[i][j] > 1:
+                        if dtm_arr[i][j] == 0:
+                            dtm_arr[i][j] = 0
+                        else:
                             dtm_arr[i][j] = 1    
                 emb_x = np.matmul(dtm_arr, out_arr)
 
