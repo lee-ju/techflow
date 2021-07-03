@@ -65,7 +65,7 @@ class nlp_preps:
                     find_vec = np.zeros((W.shape[1]))
                 self.out_x.append(find_vec)
             out_arr = np.array(self.out_x)
-            if use_weight:
+            if self.use_weight:
                 emb_x = np.matmul(dtm_arr, out_arr)
             else:
                 for i in range(N):
