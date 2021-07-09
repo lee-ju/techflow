@@ -147,33 +147,46 @@ class pic_utils:
             from_date = self.repo[self.from_sam[i]]
             to_date = self.repo[self.to_sam[i]]
             diff_date = from_date - to_date
-            
+
             if abs(diff_date) <= self.max_date:
                 if diff_date <= 0:
                     E = self.from_sam[i]
                     L = self.to_sam[i]
-                    
+
                 else:
                     E = self.to_sam[i]
                     L = self.from_sam[i]
 
                 idx_E = [e for e, value in enumerate(
                     self.from_cam) if value == E]
-                F1 = [self.to_cam[f] for f in idx_E]
 
-                for h in F1:
-                    idx_F1 = [e for e, value in enumerate(
-                        self.from_cam) if value == h]
-                    F2 = [self.to_cam[f] for f in idx_F1]
-                    
-                    if len(F2) != 0:
-                        for k in F2:
-                            if k == L:
-                                self.pic_E.append(E)
-                                self.pic_L.append(L)
+                # if (E, L) in CAM, they are not pic
+                chk = 0
+                for idx_e in idx_E:
+                    if self.to_cam[idx_e] == L:
+                        chk += 1
+                if chk == 0:
+                    F1 = [self.to_cam[f] for f in idx_E]
+
+                    for h in F1:
+                        idx_F1 = [e for e, value in enumerate(
+                            self.from_cam) if value == h]
+                        F2 = [self.to_cam[f] for f in idx_F1]
+
+                        if len(F2) != 0:
+                            for k in F2:
+                                if k == L:
+                                    self.pic_E.append(E)
+                                    self.pic_L.append(L)
+                else:
+                    # (E, L) in CAM
+                    pass
             else:
+                # diff_date > max_date
                 pass
+
         d = {'P_E': self.pic_E, 'P_L': self.pic_L}
+
         return_df = pd.DataFrame(d)
         return_df_dupdrop = return_df.drop_duplicates()
         return_pic_E = return_df_dupdrop['P_E']
