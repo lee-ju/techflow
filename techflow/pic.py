@@ -165,6 +165,9 @@ class pic_utils:
                 for idx_e in idx_E:
                     if self.to_cam[idx_e] == L:
                         chk += 1
+                        break
+                    else:
+                        pass
                 if chk == 0:
                     F1 = [self.to_cam[f] for f in idx_E]
 
